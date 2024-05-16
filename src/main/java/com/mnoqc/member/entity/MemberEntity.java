@@ -24,11 +24,17 @@ public class MemberEntity {
     @Column
     private String memberName;
 
+    // MemberDTO를 MemberEntity로 변환하는 정적 메소드
     public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
+        // 새로운 MemberEntity 객체 생성
         MemberEntity memberEntity = new MemberEntity();
+
+        // DTO에서 멤버 이메일, 패스워드, 이름을 추출하여 MemberEntity에 설정
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberName(memberDTO.getMemberName());
+
+        // 변환된 MemberEntity 객체 반환
         return memberEntity;
     }
 }

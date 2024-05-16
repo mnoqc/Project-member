@@ -1,5 +1,6 @@
 package com.mnoqc.member.dto;
 
+import com.mnoqc.member.entity.MemberEntity;
 import lombok.*;
 
 @Getter
@@ -14,4 +15,13 @@ public class MemberDTO {
     private String memberEmail; // 회원 이메일
     private String memberPassword; // 회원 비밀번호
     private String memberName; // 회원 이름
+
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(memberEntity.getId());
+        memberDTO.setMemberEmail(memberEntity.getMemberEmail());
+        memberDTO.setMemberPassword(memberEntity.getMemberPassword());
+        memberDTO.setMemberName(memberEntity.getMemberName());
+        return memberDTO;
+    }
 }
