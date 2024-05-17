@@ -5,7 +5,10 @@ import com.mnoqc.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,4 +49,23 @@ import org.springframework.web.bind.annotation.*;
             return "login";
         }
     }
+
+    @GetMapping("/member/")
+// HTTP GET 요청에 매핑되는 메소드를 선언. "/member/" 경로에 매핑.
+    public String findAll(Model model) {
+        // 서비스를 통해 모든 회원을 조회.
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        // 조회된 회원 목록을 HTML 페이지로 전달하기 위해 모델에 추가.
+        model.addAttribute("memberList", memberDTOList);
+        // "list"라는 이름의 HTML 템플릿 반환.
+        return "list";
+    }
+
+    @GetMapping("/member/{id}")
+    public String findById(@PathVariable("id") Long id, Model model) {
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member", memberDTO);
+        return "detail";
+    }
+
 }
