@@ -94,4 +94,10 @@ import java.util.List;
         return "index";
     }
 
+    @PostMapping("/member/email-check")
+    public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail) {
+        System.out.println("memberEmail = " + memberEmail);
+        return "체크 완료";
+    }
+
 }
