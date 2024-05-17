@@ -13,7 +13,8 @@
 <!-- action 속성: form에 작성한 데이터를 어디로 보낼지 지정 -->
 <form action="/member/save" method="post">
     <!-- name 속성: 서버로 전송할 때 변수 이름의 역할 -->
-  이메일: <input type="text" name="memberEmail" id="memberEmail" onkeyup="emailCheck()"> <br>
+  이메일: <input type="text" name="memberEmail" id="memberEmail" onblur="emailCheck()"> <br>
+    <p id="check-result"></p>
   비밀번호: <input type="password" name="memberPassword"> <br>
   이름: <input type="text" name="memberName"> <br>
     <input type="submit" value="회원가입">
@@ -22,6 +23,7 @@
 <script th:inlike="javascript">
     const emailCheck = () => {
         const email = document.getElementById("memberEmail").value;
+        const checkResult = document.getElementById("check-result");
         console.log("입력값: ", email);
         $.ajax({
             // 요청 방식: post, url: "email-check", 데이터: 이메일
@@ -32,6 +34,13 @@
             },
             success: function (res) {
                 console.log("요청 성공", res);
+                if (res == "ok") {
+                    console.log("사용 가능한 이메일");
+                    checkResult.innerHTML = "사용 가능한 이메일";
+                } else {
+                    console.log("이미 사용 중인 이메일");
+                    checkResult.innerHTML = "이미 사용 중인 이메일";
+                }
             },
             error: function (err) {
                 console.log("에러 발생", err);
