@@ -6,6 +6,8 @@ import com.mnoqc.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,5 +46,35 @@ public class MemberService {
             // 조회 결과가 없다(해당 이메일을 가진 회원이 없다)
             return null;
         }
+    }
+
+    public List<MemberDTO> findAll() {
+        // 모든 회원 엔티티를 데이터베이스에서 조회하여 리스트로 가져옵니다.
+        List<MemberEntity> memberEntityList = memberRepository.findAll();
+        // 회원 DTO 객체를 저장할 리스트를 생성합니다.
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        // 조회된 각 회원 엔티티를 반복하면서 DTO로 변환하고 리스트에 추가합니다.
+        for (MemberEntity memberEntity : memberEntityList) {
+            // 회원 엔티티를 회원 DTO로 변환하여 리스트에 추가합니다.
+            memberDTOList.add(MemberDTO.toMemberDTO(memberEntity));
+            // 위 주석 처리된 두 줄과 동일한 기능을 수행하는 코드입니다.
+            // MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
+            // memberDTOList.add(memberDTO);
+        }
+        // DTO로 변환된 회원 목록을 반환합니다.
+        return memberDTOList;
+    }
+
+    public MemberDTO findById(Long id) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+        if (optionalMemberEntity.isPresent()) {
+//            MemberEntity memberEntity = optionalMemberEntity.get();
+//            MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
+//            return memberDTO;
+            return MemberDTO.toMemberDTO(optionalMemberEntity.get());
+        } else {
+            return null;
+        }
+
     }
 }
