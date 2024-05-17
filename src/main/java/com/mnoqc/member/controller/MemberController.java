@@ -68,4 +68,24 @@ import java.util.List;
         return "detail";
     }
 
+    @GetMapping("/member/update")
+    public String updateGorm(HttpSession session, Model model) {
+        String myEmail = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.updateForm(myEmail);
+        model.addAttribute("updateMember", memberDTO);
+        return "update";
+    }
+
+    @PostMapping("/member/update")
+    public String update(@ModelAttribute MemberDTO memberDTO) {
+        memberService.update(memberDTO);
+        return "redirect:/member/" + memberDTO.getId();
+    }
+
+    @GetMapping("/member/delete/{id}")
+    public String deleteById(@PathVariable("id") Long id) {
+        memberService.deleteById(id);
+        return "redirect:/member/";
+    }
+
 }

@@ -37,4 +37,19 @@ public class MemberEntity {
         // 변환된 MemberEntity 객체 반환
         return memberEntity;
     }
+
+    public static MemberEntity toUpdateMemberEntity(MemberDTO memberDTO) {
+        // 새로운 MemberEntity 객체 생성
+        MemberEntity memberEntity = new MemberEntity();
+        // DTO에서 가져온 ID 값을 MemberEntity의 ID로 설정
+        memberEntity.setId(memberDTO.getId());
+        // DTO에서 멤버 이메일, 패스워드, 이름을 추출하여 MemberEntity에 설정
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+
+        // 변환된 MemberEntity 객체 반환
+        return memberEntity;
+    }
+
 }
