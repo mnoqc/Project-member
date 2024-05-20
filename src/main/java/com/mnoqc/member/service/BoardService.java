@@ -51,4 +51,8 @@ public class BoardService {
         boardRepository.save(boardEntity);
         return findById(boardDTO.getId());
     }
+
+    public void deiete(Long id) {
+        boardRepository.deleteById(id);
+    }
 }
