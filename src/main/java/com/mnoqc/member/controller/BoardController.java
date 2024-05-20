@@ -57,7 +57,11 @@ public class BoardController {
 //        return "redirect:/board/" + boardDTO.getId();
     }
 
-    @GetMapping("/delete/{id")
+    @GetMapping("/delete/{id}")
+    public String deiete(@PathVariable("id") Long id) {
+        boardService.deiete(id);
+        return "redirect:/board/";
+    }
 
 
 }
